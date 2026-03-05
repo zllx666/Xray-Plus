@@ -1,6 +1,6 @@
 # Xray-Plus
 
-Xray 一键管理脚本，自动搭建 6 种协议节点，支持 Reality、xhttp 传输、后量子加密（ENC）。
+Xray 一键安装脚本，自动搭建 6 种协议节点，支持 Reality、xhttp 传输、后量子加密（ENC）。
 
 ---
 
