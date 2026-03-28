@@ -517,7 +517,7 @@ do_install() {
   ok "Reality SNI：${SNI}"
  
   # 生成账号和端口
-  info "自动生成 6 个节点账号..."
+  info "自动生成 8 个节点账号..."
   local UUID1 UUID2 UUID3 UUID4 UUID5 UUID6 UUID7 UUID8
   local P1 P2 P3 P4 P5 P6 P7 P8
   local PATH1 PATH2 PATH4 PATH5 PATH6 PATH7 PATH8
