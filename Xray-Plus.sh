@@ -102,7 +102,7 @@ show_menu() {
  
   echo -e "${BOLD}${CYAN}"
   echo " ================================================"
-  echo "   Xray-Plus 管理脚本 v1.5.0"
+  echo "   Xray-Plus 管理脚本 v1.6.0"
   echo "   https://github.com/Alvin9999-newpac/Xray-Plus"
   echo -e " ================================================${PLAIN}"
   printf " %-12s ${BC}%s${PLAIN}\n"   "BBR 加速："  "$BBR"
@@ -217,10 +217,10 @@ _show_config() {
   echo -e " ${BOLD}${CYAN}[6] VMess-ws${PLAIN}"
   echo " ${L6}"
   echo
-  echo -e " ${BOLD}${CYAN}[7] VLESS-xhttp3-Reality-Vision-force-brutal${PLAIN}"
+  echo -e " ${BOLD}${CYAN}[7] VLESS-xhttp3-Reality-Vision-force-brutal${PLAIN} ${YELLOW}（需 Xray-core v26.3.27+，低版本启动会报错）${PLAIN}"
   echo " vless://${UUID7}@${IP}:${P7}?security=reality&flow=xtls-rprx-vision&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH7}&mode=auto#VLESS-xhttp3-Reality-Vision-brutal"
   echo
-  echo -e " ${BOLD}${CYAN}[8] VLESS-xhttp3-Reality-Vision-force-brutal-enc${PLAIN}"
+  echo -e " ${BOLD}${CYAN}[8] VLESS-xhttp3-Reality-Vision-force-brutal-enc${PLAIN} ${YELLOW}（需 Xray-core v26.3.27+，低版本启动会报错）${PLAIN}"
   echo " vless://${UUID8}@${IP}:${P8}?security=reality&flow=xtls-rprx-vision&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH8}&mode=auto&encryption=${ENC}#VLESS-xhttp3-Reality-Vision-brutal-enc"
  
   echo -e "\n${BOLD}${GREEN} ==================================${PLAIN}\n"
@@ -383,6 +383,7 @@ EOF
  
   # 节点7：VLESS-xhttp3-Reality-Vision-force-brutal
   echo -e " ${BOLD}${CYAN}---- [7] VLESS-xhttp3-Reality-Vision-force-brutal ----${PLAIN}"
+  echo -e " ${YELLOW}⚠ 需 Xray-core v26.3.27+，低版本客户端加载此 config 会启动失败${PLAIN}"
   _client_header
   cat <<EOF
   "outbounds": [
@@ -410,6 +411,7 @@ EOF
  
   # 节点8：VLESS-xhttp3-Reality-Vision-force-brutal-enc
   echo -e " ${BOLD}${CYAN}---- [8] VLESS-xhttp3-Reality-Vision-force-brutal-enc ----${PLAIN}"
+  echo -e " ${YELLOW}⚠ 需 Xray-core v26.3.27+，低版本客户端加载此 config 会启动失败${PLAIN}"
   _client_header
   cat <<EOF
   "outbounds": [
