@@ -102,7 +102,7 @@ show_menu() {
  
   echo -e "${BOLD}${CYAN}"
   echo " ================================================"
-  echo "   Xray-Plus 管理脚本 v1.6.0"
+  echo "   Xray-Plus 管理脚本 v1.7.0"
   echo "   https://github.com/Alvin9999-newpac/Xray-Plus"
   echo -e " ================================================${PLAIN}"
   printf " %-12s ${BC}%s${PLAIN}\n"   "BBR 加速："  "$BBR"
@@ -200,7 +200,7 @@ _show_config() {
   echo -e "\n${BOLD}${GREEN} ========== 节点分享链接 ==========${PLAIN}\n"
  
   echo -e " ${BOLD}${CYAN}[1] VLESS-xhttp-Reality-Vision-enc${PLAIN}"
-  echo " vless://${UUID1}@${IP}:${P1}?security=reality&flow=xtls-rprx-vision&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH1}&mode=auto&encryption=${ENC}#VLESS-xhttp-Reality-Vision-enc"
+  echo " vless://${UUID1}@${IP}:${P1}?security=reality&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH1}&mode=auto&encryption=${ENC}#VLESS-xhttp-Reality-Vision-enc"
   echo
   echo -e " ${BOLD}${CYAN}[2] VLESS-xhttp-Reality-Vision${PLAIN}"
   echo " vless://${UUID2}@${IP}:${P2}?encryption=none&security=reality&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH2}#VLESS-xhttp-Reality-Vision"
@@ -209,19 +209,19 @@ _show_config() {
   echo " vless://${UUID3}@${IP}:${P3}?security=reality&flow=xtls-rprx-vision&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=tcp#VLESS-tcp-Reality-Vision"
   echo
   echo -e " ${BOLD}${CYAN}[4] VLESS-xhttp-Vision-enc${PLAIN}"
-  echo " vless://${UUID4}@${IP}:${P4}?security=none&flow=xtls-rprx-vision&type=xhttp&path=${PATH4}&mode=auto&encryption=${ENC}#VLESS-xhttp-Vision-enc"
+  echo " vless://${UUID4}@${IP}:${P4}?security=none&type=xhttp&path=${PATH4}&mode=auto&encryption=${ENC}#VLESS-xhttp-Vision-enc"
   echo
   echo -e " ${BOLD}${CYAN}[5] VLESS-ws-Vision-enc${PLAIN}"
-  echo " vless://${UUID5}@${IP}:${P5}?security=none&flow=xtls-rprx-vision&type=ws&path=${PATH5}&encryption=${ENC}#VLESS-ws-Vision-enc"
+  echo " vless://${UUID5}@${IP}:${P5}?security=none&type=ws&path=${PATH5}&encryption=${ENC}#VLESS-ws-Vision-enc"
   echo
   echo -e " ${BOLD}${CYAN}[6] VMess-ws${PLAIN}"
   echo " ${L6}"
   echo
-  echo -e " ${BOLD}${CYAN}[7] VLESS-xhttp3-Reality-Vision-force-brutal${PLAIN} ${YELLOW}（需 Xray-core v26.3.27+，低版本可能无法启动）${PLAIN}"
-  echo " vless://${UUID7}@${IP}:${P7}?security=reality&flow=xtls-rprx-vision&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH7}&mode=auto#VLESS-xhttp3-Reality-Vision-brutal"
+  echo -e " ${BOLD}${CYAN}[7] VLESS-xhttp3-Reality-Vision-force-brutal${PLAIN} ${YELLOW}（需 Xray-core v26.3.27+，低版本启动会报错）${PLAIN}"
+  echo " vless://${UUID7}@${IP}:${P7}?security=reality&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH7}&mode=auto#VLESS-xhttp3-Reality-Vision-brutal"
   echo
-  echo -e " ${BOLD}${CYAN}[8] VLESS-xhttp3-Reality-Vision-force-brutal-enc${PLAIN} ${YELLOW}（需 Xray-core v26.3.27+，低版本可能无法启动）${PLAIN}"
-  echo " vless://${UUID8}@${IP}:${P8}?security=reality&flow=xtls-rprx-vision&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH8}&mode=auto&encryption=${ENC}#VLESS-xhttp3-Reality-Vision-brutal-enc"
+  echo -e " ${BOLD}${CYAN}[8] VLESS-xhttp3-Reality-Vision-force-brutal-enc${PLAIN} ${YELLOW}（需 Xray-core v26.3.27+，低版本启动会报错）${PLAIN}"
+  echo " vless://${UUID8}@${IP}:${P8}?security=reality&pbk=${PBK}&sid=${SID}&sni=${SNI}&fp=chrome&type=xhttp&path=${PATH8}&mode=auto&encryption=${ENC}#VLESS-xhttp3-Reality-Vision-brutal-enc"
  
   echo -e "\n${BOLD}${GREEN} ==================================${PLAIN}\n"
  
@@ -241,7 +241,7 @@ _show_config() {
         "vnext": [{
           "address": "${IP}",
           "port": ${P1},
-          "users": [{ "id": "${UUID1}", "flow": "xtls-rprx-vision", "encryption": "${ENC}" }]
+          "users": [{ "id": "${UUID1}", "encryption": "${ENC}" }]
         }]
       },
       "streamSettings": {
@@ -267,7 +267,7 @@ EOF
         "vnext": [{
           "address": "${IP}",
           "port": ${P2},
-          "users": [{ "id": "${UUID2}", "flow": "xtls-rprx-vision", "encryption": "none" }]
+          "users": [{ "id": "${UUID2}", "encryption": "none" }]
         }]
       },
       "streamSettings": {
@@ -318,7 +318,7 @@ EOF
         "vnext": [{
           "address": "${IP}",
           "port": ${P4},
-          "users": [{ "id": "${UUID4}", "flow": "xtls-rprx-vision", "encryption": "${ENC}" }]
+          "users": [{ "id": "${UUID4}", "encryption": "${ENC}" }]
         }]
       },
       "streamSettings": {
@@ -343,7 +343,7 @@ EOF
         "vnext": [{
           "address": "${IP}",
           "port": ${P5},
-          "users": [{ "id": "${UUID5}", "flow": "xtls-rprx-vision", "encryption": "${ENC}" }]
+          "users": [{ "id": "${UUID5}", "encryption": "${ENC}" }]
         }]
       },
       "streamSettings": {
@@ -383,7 +383,7 @@ EOF
  
   # 节点7：VLESS-xhttp3-Reality-Vision-force-brutal
   echo -e " ${BOLD}${CYAN}---- [7] VLESS-xhttp3-Reality-Vision-force-brutal ----${PLAIN}"
-  echo -e " ${YELLOW}⚠ 需 Xray-core v26.3.27+，低版本客户端加载此 config 可能会启动失败${PLAIN}"
+  echo -e " ${YELLOW}⚠ 需 Xray-core v26.3.27+，低版本客户端加载此 config 会启动失败${PLAIN}"
   _client_header
   cat <<EOF
   "outbounds": [
@@ -394,7 +394,7 @@ EOF
         "vnext": [{
           "address": "${IP}",
           "port": ${P7},
-          "users": [{ "id": "${UUID7}", "flow": "xtls-rprx-vision", "encryption": "none" }]
+          "users": [{ "id": "${UUID7}", "encryption": "none" }]
         }]
       },
       "streamSettings": {
@@ -411,7 +411,7 @@ EOF
  
   # 节点8：VLESS-xhttp3-Reality-Vision-force-brutal-enc
   echo -e " ${BOLD}${CYAN}---- [8] VLESS-xhttp3-Reality-Vision-force-brutal-enc ----${PLAIN}"
-  echo -e " ${YELLOW}⚠ 需 Xray-core v26.3.27+，低版本客户端加载此 config 可能会启动失败${PLAIN}"
+  echo -e " ${YELLOW}⚠ 需 Xray-core v26.3.27+，低版本客户端加载此 config 会启动失败${PLAIN}"
   _client_header
   cat <<EOF
   "outbounds": [
@@ -422,7 +422,7 @@ EOF
         "vnext": [{
           "address": "${IP}",
           "port": ${P8},
-          "users": [{ "id": "${UUID8}", "flow": "xtls-rprx-vision", "encryption": "${ENC}" }]
+          "users": [{ "id": "${UUID8}", "encryption": "${ENC}" }]
         }]
       },
       "streamSettings": {
@@ -545,7 +545,7 @@ do_install() {
       "port": ${P1},
       "protocol": "vless",
       "settings": {
-        "clients": [{ "id": "${UUID1}", "flow": "xtls-rprx-vision" }],
+        "clients": [{ "id": "${UUID1}" }],
         "decryption": "${DEKEY}"
       },
       "streamSettings": {
@@ -607,7 +607,7 @@ do_install() {
       "port": ${P4},
       "protocol": "vless",
       "settings": {
-        "clients": [{ "id": "${UUID4}", "flow": "xtls-rprx-vision" }],
+        "clients": [{ "id": "${UUID4}" }],
         "decryption": "${DEKEY}"
       },
       "streamSettings": {
@@ -622,7 +622,7 @@ do_install() {
       "port": ${P5},
       "protocol": "vless",
       "settings": {
-        "clients": [{ "id": "${UUID5}", "flow": "xtls-rprx-vision" }],
+        "clients": [{ "id": "${UUID5}" }],
         "decryption": "${DEKEY}"
       },
       "streamSettings": {
@@ -651,7 +651,7 @@ do_install() {
       "port": ${P7},
       "protocol": "vless",
       "settings": {
-        "clients": [{ "id": "${UUID7}", "flow": "xtls-rprx-vision" }],
+        "clients": [{ "id": "${UUID7}" }],
         "decryption": "none"
       },
       "streamSettings": {
@@ -672,7 +672,7 @@ do_install() {
       "port": ${P8},
       "protocol": "vless",
       "settings": {
-        "clients": [{ "id": "${UUID8}", "flow": "xtls-rprx-vision" }],
+        "clients": [{ "id": "${UUID8}" }],
         "decryption": "${DEKEY}"
       },
       "streamSettings": {
