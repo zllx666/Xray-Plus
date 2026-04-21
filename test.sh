@@ -64,7 +64,7 @@ get_ip() {
 }
  
 # ──────────── 随机工具 ────────────
-rand_port() { python3 -c "import random; print(random.randint(443))"; }
+rand_port() { python3 -c "import random; print(443)"; }
 rand_uuid()  { python3 -c "from uuid import uuid4; print(uuid4())"; }
 rand_str()   { python3 -c "import random,string; print(''.join(random.choices(string.ascii_letters+string.digits, k=${1})))"; }
 rand_hex()   { python3 -c "import random; print(''.join(random.choices('0123456789abcdef', k=${1})))"; }
