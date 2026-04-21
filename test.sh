@@ -28,7 +28,7 @@ SERVICE_FILE="/etc/systemd/system/xray-plus.service"
  
 REALITY_DOMAINS=(
   "www.ucla.edu"
-  )
+ )
  
 # ──────────── 系统检测 ────────────
 detect_arch() {
@@ -64,12 +64,12 @@ get_ip() {
 }
  
 # ──────────── 随机工具 ────────────
-rand_port() { python3 -c "import random; print(random.randint(10000,65535))"; }
+rand_port() { python3 -c "import random; print(random.randint(443))"; }
 rand_uuid()  { python3 -c "from uuid import uuid4; print(uuid4())"; }
 rand_str()   { python3 -c "import random,string; print(''.join(random.choices(string.ascii_letters+string.digits, k=${1})))"; }
 rand_hex()   { python3 -c "import random; print(''.join(random.choices('0123456789abcdef', k=${1})))"; }
 rand_domain() {
-  python3 -c "import random; d=['www.microsoft.com','www.bing.com','www.yahoo.com','www.amazon.com','www.swift.org','www.adobe.com','www.cloudflare.com']; print(random.choice(d))"
+  python3 -c "import random; d=['www.ucla.edu']; print(random.choice(d))"
 }
  
 # ──────────── 防火墙 ────────────
@@ -249,6 +249,188 @@ EOF
   _client_footer
   echo
  
+  # 节点2：VLESS-xhttp-Reality-Vision
+  echo -e " ${BOLD}${CYAN}---- [2] VLESS-xhttp-Reality-Vision ----${PLAIN}"
+  _client_header
+  cat <<EOF
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [{
+          "address": "${IP}",
+          "port": ${P2},
+          "users": [{ "id": "${UUID2}", "encryption": "none" }]
+        }]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "realitySettings": { "serverName": "${SNI}", "fingerprint": "chrome", "publicKey": "${PBK}", "shortId": "${SID}" },
+        "xhttpSettings": { "path": "${PATH2}" }
+      }
+    }
+EOF
+  _client_footer
+  echo
+ 
+  # 节点3：VLESS-tcp-Reality-Vision
+  echo -e " ${BOLD}${CYAN}---- [3] VLESS-tcp-Reality-Vision ----${PLAIN}"
+  _client_header
+  cat <<EOF
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [{
+          "address": "${IP}",
+          "port": ${P3},
+          "users": [{ "id": "${UUID3}", "flow": "xtls-rprx-vision", "encryption": "none" }]
+        }]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": { "serverName": "${SNI}", "fingerprint": "chrome", "publicKey": "${PBK}", "shortId": "${SID}" }
+      }
+    }
+EOF
+  _client_footer
+  echo
+ 
+  # 节点4：VLESS-xhttp-plain-enc（无TLS，需反代）
+  echo -e " ${BOLD}${CYAN}---- [4] VLESS-xhttp-Vision-enc（无TLS，建议套反代）----${PLAIN}"
+  _client_header
+  cat <<EOF
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [{
+          "address": "${IP}",
+          "port": ${P4},
+          "users": [{ "id": "${UUID4}", "encryption": "${ENC}" }]
+        }]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "none",
+        "xhttpSettings": { "path": "${PATH4}", "mode": "auto" }
+      }
+    }
+EOF
+  _client_footer
+  echo
+ 
+  # 节点5：VLESS-ws-plain-enc（无TLS，需反代）
+  echo -e " ${BOLD}${CYAN}---- [5] VLESS-ws-Vision-enc（无TLS，建议套反代）----${PLAIN}"
+  _client_header
+  cat <<EOF
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [{
+          "address": "${IP}",
+          "port": ${P5},
+          "users": [{ "id": "${UUID5}", "encryption": "${ENC}" }]
+        }]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": { "path": "${PATH5}" }
+      }
+    }
+EOF
+  _client_footer
+  echo
+ 
+  # 节点6：VMess-ws
+  echo -e " ${BOLD}${CYAN}---- [6] VMess-ws ----${PLAIN}"
+  _client_header
+  cat <<EOF
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [{
+          "address": "${IP}",
+          "port": ${P6},
+          "users": [{ "id": "${UUID6}", "alterId": 0, "security": "auto" }]
+        }]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": { "path": "${PATH6}" }
+      }
+    }
+EOF
+  _client_footer
+  echo
+ 
+  # 节点7：VLESS-xhttp3-Reality-Vision-force-brutal
+  echo -e " ${BOLD}${CYAN}---- [7] VLESS-xhttp3-Reality-Vision-force-brutal ----${PLAIN}"
+  echo -e " ${YELLOW}⚠ 需 Xray-core v26.3.27+，低版本客户端加载此 config 会启动失败${PLAIN}"
+  _client_header
+  cat <<EOF
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [{
+          "address": "${IP}",
+          "port": ${P7},
+          "users": [{ "id": "${UUID7}", "encryption": "none" }]
+        }]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "realitySettings": { "serverName": "${SNI}", "fingerprint": "chrome", "publicKey": "${PBK}", "shortId": "${SID}" },
+        "xhttpSettings": { "path": "${PATH7}", "mode": "auto" },
+        "finalmask": { "quicParams": { "congestion": "force-brutal", "brutalUp": "100 mbps" } }
+      }
+    }
+EOF
+  _client_footer
+  echo
+ 
+  # 节点8：VLESS-xhttp3-Reality-Vision-force-brutal-enc
+  echo -e " ${BOLD}${CYAN}---- [8] VLESS-xhttp3-Reality-Vision-force-brutal-enc ----${PLAIN}"
+  echo -e " ${YELLOW}⚠ 需 Xray-core v26.3.27+，低版本客户端加载此 config 会启动失败${PLAIN}"
+  _client_header
+  cat <<EOF
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [{
+          "address": "${IP}",
+          "port": ${P8},
+          "users": [{ "id": "${UUID8}", "encryption": "${ENC}" }]
+        }]
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "realitySettings": { "serverName": "${SNI}", "fingerprint": "chrome", "publicKey": "${PBK}", "shortId": "${SID}" },
+        "xhttpSettings": { "path": "${PATH8}", "mode": "auto" },
+        "finalmask": { "quicParams": { "congestion": "force-brutal", "brutalUp": "100 mbps" } }
+      }
+    }
+EOF
+  _client_footer
+  echo
+ 
   echo -e "${BOLD}${GREEN} ==========================================${PLAIN}\n"
 }
  
@@ -331,13 +513,19 @@ do_install() {
   ok "Reality SNI：${SNI}"
  
   # 生成账号和端口
-  info "自动生成 1 个节点账号..."
-  local UUID1
-  local P1
-  local PATH1
-  UUID1=$(rand_uuid)
-  P1=$(rand_port)
-  PATH1="/$(rand_str 8)"
+  info "自动生成 8 个节点账号..."
+  local UUID1 UUID2 UUID3 UUID4 UUID5 UUID6 UUID7 UUID8
+  local P1 P2 P3 P4 P5 P6 P7 P8
+  local PATH1 PATH2 PATH4 PATH5 PATH6 PATH7 PATH8
+  UUID1=$(rand_uuid); UUID2=$(rand_uuid); UUID3=$(rand_uuid)
+  UUID4=$(rand_uuid); UUID5=$(rand_uuid); UUID6=$(rand_uuid)
+  UUID7=$(rand_uuid); UUID8=$(rand_uuid)
+  P1=$(rand_port);    P2=$(rand_port);    P3=$(rand_port)
+  P4=$(rand_port);    P5=$(rand_port);    P6=$(rand_port)
+  P7=$(rand_port);    P8=$(rand_port)
+  PATH1="/$(rand_str 8)"; PATH2="/$(rand_str 8)"
+  PATH4="/$(rand_str 8)"; PATH5="/$(rand_str 8)"; PATH6="/$(rand_str 8)"
+  PATH7="/$(rand_str 8)"; PATH8="/$(rand_str 8)"
  
   # 写配置文件
   info "写入服务端配置..."
@@ -366,6 +554,133 @@ do_install() {
         "xhttpSettings": { "path": "${PATH1}", "mode": "auto" }
       }
     },
+    {
+      "tag": "vless-xhttp-reality",
+      "listen": "0.0.0.0",
+      "port": ${P2},
+      "protocol": "vless",
+      "settings": {
+        "clients": [{ "id": "${UUID2}" }],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "realitySettings": {
+          "dest": "${SNI}:443",
+          "serverNames": ["${SNI}"],
+          "privateKey": "${PRK}",
+          "shortIds": ["${SID}"]
+        },
+        "xhttpSettings": { "path": "${PATH2}" }
+      }
+    },
+    {
+      "tag": "vless-tcp-reality",
+      "listen": "0.0.0.0",
+      "port": ${P3},
+      "protocol": "vless",
+      "settings": {
+        "clients": [{ "id": "${UUID3}", "flow": "xtls-rprx-vision" }],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "dest": "${SNI}:443",
+          "serverNames": ["${SNI}"],
+          "privateKey": "${PRK}",
+          "shortIds": ["${SID}"]
+        }
+      }
+    },
+    {
+      "tag": "vless-xhttp-plain-enc",
+      "listen": "0.0.0.0",
+      "port": ${P4},
+      "protocol": "vless",
+      "settings": {
+        "clients": [{ "id": "${UUID4}" }],
+        "decryption": "${DEKEY}"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "none",
+        "xhttpSettings": { "path": "${PATH4}", "mode": "auto" }
+      }
+    },
+    {
+      "tag": "vless-ws-plain-enc",
+      "listen": "0.0.0.0",
+      "port": ${P5},
+      "protocol": "vless",
+      "settings": {
+        "clients": [{ "id": "${UUID5}" }],
+        "decryption": "${DEKEY}"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": { "path": "${PATH5}" }
+      }
+    },
+    {
+      "tag": "vmess-ws-plain",
+      "listen": "0.0.0.0",
+      "port": ${P6},
+      "protocol": "vmess",
+      "settings": {
+        "clients": [{ "id": "${UUID6}", "alterId": 0 }]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": { "path": "${PATH6}" }
+      }
+    },
+    {
+      "tag": "vless-xhttp3-reality-brutal",
+      "listen": "0.0.0.0",
+      "port": ${P7},
+      "protocol": "vless",
+      "settings": {
+        "clients": [{ "id": "${UUID7}" }],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "realitySettings": {
+          "dest": "${SNI}:443",
+          "serverNames": ["${SNI}"],
+          "privateKey": "${PRK}",
+          "shortIds": ["${SID}"]
+        },
+        "xhttpSettings": { "path": "${PATH7}", "mode": "auto" }
+      }
+    },
+    {
+      "tag": "vless-xhttp3-reality-brutal-enc",
+      "listen": "0.0.0.0",
+      "port": ${P8},
+      "protocol": "vless",
+      "settings": {
+        "clients": [{ "id": "${UUID8}" }],
+        "decryption": "${DEKEY}"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "realitySettings": {
+          "dest": "${SNI}:443",
+          "serverNames": ["${SNI}"],
+          "privateKey": "${PRK}",
+          "shortIds": ["${SID}"]
+        },
+        "xhttpSettings": { "path": "${PATH8}", "mode": "auto" }
+      }
+    }
   ],
   "outbounds": [
     { "protocol": "freedom", "tag": "direct" },
@@ -378,8 +693,28 @@ EOF
   # 保存凭据
   cat > "$CRED_FILE" <<EOF
 UUID1=${UUID1}
+UUID2=${UUID2}
+UUID3=${UUID3}
+UUID4=${UUID4}
+UUID5=${UUID5}
+UUID6=${UUID6}
+UUID7=${UUID7}
+UUID8=${UUID8}
 P1=${P1}
+P2=${P2}
+P3=${P3}
+P4=${P4}
+P5=${P5}
+P6=${P6}
+P7=${P7}
+P8=${P8}
 PATH1=${PATH1}
+PATH2=${PATH2}
+PATH4=${PATH4}
+PATH5=${PATH5}
+PATH6=${PATH6}
+PATH7=${PATH7}
+PATH8=${PATH8}
 PBK=${PBK}
 SID=${SID}
 SNI=${SNI}
@@ -408,7 +743,7 @@ EOF
  
   # 防火墙
   info "放行防火墙端口..."
-  for port in $P1; do
+  for port in $P1 $P2 $P3 $P4 $P5 $P6 $P7 $P8; do
     open_port "$port" tcp
   done
   ok "防火墙放行完成"
