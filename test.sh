@@ -520,9 +520,12 @@ do_install() {
   UUID1=$(rand_uuid); UUID2=$(rand_uuid); UUID3=$(rand_uuid)
   UUID4=$(rand_uuid); UUID5=$(rand_uuid); UUID6=$(rand_uuid)
   UUID7=$(rand_uuid); UUID8=$(rand_uuid)
-  P1=$(rand_port);    P2=$(rand_port);    P3=$(rand_port)
-  P4=$(rand_port);    P5=$(rand_port);    P6=$(rand_port)
-  P7=$(rand_port);    P8=$(rand_port)
+  #P1=$(rand_port);    P2=$(rand_port);    P3=$(rand_port)
+  #P4=$(rand_port);    P5=$(rand_port);    P6=$(rand_port)
+  #P7=$(rand_port);    P8=$(rand_port)
+  P1=443;    P2=443;    P3=443
+  P4=443;    P5=443;    P6=443
+  P7=443;    P8=443
   PATH1="/$(rand_str 8)"; PATH2="/$(rand_str 8)"
   PATH4="/$(rand_str 8)"; PATH5="/$(rand_str 8)"; PATH6="/$(rand_str 8)"
   PATH7="/$(rand_str 8)"; PATH8="/$(rand_str 8)"
