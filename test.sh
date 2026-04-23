@@ -28,7 +28,7 @@ SERVICE_FILE="/etc/systemd/system/xray-plus.service"
  
 REALITY_DOMAINS=(
   "www.ucla.edu"
-  )
+)
  
 # ──────────── 系统检测 ────────────
 detect_arch() {
@@ -64,7 +64,7 @@ get_ip() {
 }
  
 # ──────────── 随机工具 ────────────
-rand_port() { python3 -c "import random; print(random.randint(10000,65535))"; }
+rand_port() { echo "443"; }
 rand_uuid()  { python3 -c "from uuid import uuid4; print(uuid4())"; }
 rand_str()   { python3 -c "import random,string; print(''.join(random.choices(string.ascii_letters+string.digits, k=${1})))"; }
 rand_hex()   { python3 -c "import random; print(''.join(random.choices('0123456789abcdef', k=${1})))"; }
@@ -520,12 +520,9 @@ do_install() {
   UUID1=$(rand_uuid); UUID2=$(rand_uuid); UUID3=$(rand_uuid)
   UUID4=$(rand_uuid); UUID5=$(rand_uuid); UUID6=$(rand_uuid)
   UUID7=$(rand_uuid); UUID8=$(rand_uuid)
-  #P1=$(rand_port);    P2=$(rand_port);    P3=$(rand_port)
-  #P4=$(rand_port);    P5=$(rand_port);    P6=$(rand_port)
-  #P7=$(rand_port);    P8=$(rand_port)
-  P1=443;    P2=443;    P3=443
-  P4=443;    P5=443;    P6=443
-  P7=443;    P8=443
+  P1=$(rand_port);    P2=$(rand_port);    P3=$(rand_port)
+  P4=$(rand_port);    P5=$(rand_port);    P6=$(rand_port)
+  P7=$(rand_port);    P8=$(rand_port)
   PATH1="/$(rand_str 8)"; PATH2="/$(rand_str 8)"
   PATH4="/$(rand_str 8)"; PATH5="/$(rand_str 8)"; PATH6="/$(rand_str 8)"
   PATH7="/$(rand_str 8)"; PATH8="/$(rand_str 8)"
