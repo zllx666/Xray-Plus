@@ -686,22 +686,6 @@ do_install() {
     { "protocol": "freedom", "tag": "direct" },
     { "protocol": "blackhole", "tag": "block" }
   ]
-  "routing": {
-  "domainStrategy": "IPOnDemand",
-  "rules": [
-      {
-        "type": "field",
-        "ip": [ "::/0", "0.0.0.0/0" ],
-        "network": "tcp,udp",
-        "outboundTag": "direct"
-      },
-      {
-        "type": "field",
-        "network": "tcp,udp",
-        "outboundTag": "direct"
-      }
-    ]
-  }
 }
 EOF
   ok "配置写入完成"
