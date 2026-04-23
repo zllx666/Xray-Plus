@@ -546,7 +546,7 @@ do_install() {
         "network": "xhttp",
         "security": "reality",
         "realitySettings": {
-          "dest": "${SNI}:443",
+          "target": "${SNI}:443",
           "serverNames": ["${SNI}"],
           "privateKey": "${PRK}",
           "shortIds": ["${SID}"]
