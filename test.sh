@@ -539,7 +539,7 @@ do_install() {
       "port": ${P1},
       "protocol": "vless",
       "settings": {
-        "clients": [{ "id": "${UUID1}" }],
+        "clients": [{ "id": "${UUID1}", "flow": "xtls-rprx-vision" }],
         "decryption": "${DEKEY}"
       },
       "streamSettings": {
