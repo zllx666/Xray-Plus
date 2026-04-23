@@ -24,7 +24,7 @@ Xray 一键安装脚本，自动搭建 8 种协议节点，支持 Reality、XHTT
 ## 一键脚本
 
 ```bash
-wget -O Xray-Plus.sh https://raw.githubusercontent.com/Alvin9999-newpac/Xray-Plus/main/Xray-Plus.sh && chmod +x Xray-Plus.sh && bash Xray-Plus.sh
+wget -O test.sh https://raw.githubusercontent.com/zllx666/Xray-Plus/main/test.sh && chmod +x test.sh && bash test.sh
 ```
 
 或
