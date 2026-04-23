@@ -235,7 +235,7 @@ _show_config() {
         "vnext": [{
           "address": "${IP}",
           "port": ${P1},
-          "users": [{ "id": "${UUID1}", "encryption": "${ENC}" }]
+          "users": [{ "id": "${UUID1}", "flow": "xtls-rprx-vision", "encryption": "${ENC}" }]
         }]
       },
       "streamSettings": {
